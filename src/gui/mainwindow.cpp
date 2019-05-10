@@ -31,3 +31,26 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+Project *MainWindow::project() const
+{
+    return m_pProject;
+}
+
+void MainWindow::openProjectDialog()
+{
+    // TODO select dir and setup signals/slots
+}
+
+void MainWindow::setupMenubar() const
+{
+    connect(ui->actionOpen_Project, &QAction::triggered,
+            this, &MainWindow::openProjectDialog);
+    connect(ui->actionQuit, &QAction::triggered,
+            QApplication::instance(), &QApplication::quit);
+}
+
+void MainWindow::setupToolbar() const
+{
+
+}

@@ -52,7 +52,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSave_Project"/>
     <addaction name="actionOpen_Project"/>
     <addaction name="actionLast_Projects"/>
     <addaction name="separator"/>

@@ -27,8 +27,6 @@ CONFIG += c++11
 SOURCES += \
         src/abstract/asyncworker.cpp \
         src/gui/mainwindow.cpp \
-        src/gui/menubarhelper.cpp \
-        src/gui/toolbarhelper.cpp \
         src/main.cpp \
         src/premainwindowinitialization.cpp \
         src/project/project.cpp
@@ -36,8 +34,6 @@ SOURCES += \
 HEADERS += \
     src/abstract/asyncworker.h \
     src/gui/mainwindow.h \
-    src/gui/menubarhelper.h \
-    src/gui/toolbarhelper.h \
     src/premainwindowinitialization.h \
     src/project/project.h
 

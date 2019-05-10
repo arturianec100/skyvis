@@ -22,6 +22,9 @@
 
 #include <QtCore>
 #include <QtWidgets>
+#include "menubarhelper.h"
+#include "toolbarhelper.h"
+#include "../project/project.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,13 +33,23 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    Q_PROPERTY(Project* project READ project)
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     virtual ~MainWindow() override;
 
+    Project *project() const;
+
+public slots:
+    void openProjectDialog();
+
+protected:
+    void setupMenubar() const;
+    void setupToolbar() const;
+
 private:
     Ui::MainWindow *ui;
+    Project *m_pProject;
 };
 
 #endif // MAINWINDOW_H

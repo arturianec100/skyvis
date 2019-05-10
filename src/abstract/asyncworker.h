@@ -25,7 +25,7 @@
 class AsyncWorker : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QThread thread READ thread)
+    Q_PROPERTY(QThread* thread READ thread)
 public:
     explicit AsyncWorker(QObject *parent = nullptr,
                          QThread::Priority priority = QThread::InheritPriority);
@@ -37,7 +37,7 @@ protected slots:
     virtual void onAppQuit();
 
 private:
-    QThread* m_pThread;
+    QThread *m_pThread;
 };
 
 #endif // ASYNCWORKER_H
