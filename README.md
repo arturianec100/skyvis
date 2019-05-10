@@ -1,4 +1,4 @@
-![Logo of the project](./resources/logo.png)
+![Logo](./resources/logo.png)
 
 # SkyVis &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://github.com/arturianec100/skyvis/blob/master/LICENSE)
 
@@ -7,6 +7,7 @@ An IDE for visual programming.
 ## Installing / Getting started
 
 To compile it you should have qmake, Qt5 (Core, Widgets, Xml) and C++ compiler. On Windows or Mac it's better just to install Qt Creator and compile there.
+
 On GNU/Linux you also can:
 ```
 sudo apt-get install build-essential libfontconfig1 mesa-common-dev libgl qt5base-dev
@@ -21,8 +22,10 @@ Qt5.
 ### Building
 
 Just open project in Qt Creator and click "Build" or "Run" button.
+
 On GNU/Linux you also can:
 ```
+cd skyvis
 qmake
 make
 ```
