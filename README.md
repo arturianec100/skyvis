@@ -8,7 +8,8 @@ An IDE for visual programming.
 
 To compile it you should have qmake, Qt5 (Core, Widgets, Xml) and C++ compiler. On Windows or Mac it's better just to install Qt Creator and compile there.
 On GNU/Linux you also can:
-```sudo apt-get install build-essential libfontconfig1 mesa-common-dev libgl qt5base-dev
+```
+sudo apt-get install build-essential libfontconfig1 mesa-common-dev libgl qt5base-dev
 ```
 Or install these packages with your package manager.
 
@@ -21,7 +22,8 @@ Qt5.
 
 Just open project in Qt Creator and click "Build" or "Run" button.
 On GNU/Linux you also can:
-```qmake
+```
+qmake
 make
 ```
 On Windows executable file must be placed in the folder with Qt dll's.
