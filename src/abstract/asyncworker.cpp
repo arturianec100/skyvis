@@ -20,27 +20,26 @@
 #include "asyncworker.h"
 
 AsyncWorker::AsyncWorker(QObject *parent, QThread::Priority priority) :
-    QObject(parent), m_pThread(new QThread(parent))
+    QObject(nullptr), m_pThread(new QThread(parent))
 {
     moveToThread(m_pThread);
     m_pThread->start(priority);
-
-    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
-            this, &AsyncWorker::onAppQuit);
 }
 
 QThread *AsyncWorker::thread() const
 {
     return m_pThread;
 }
-
+/*
 void AsyncWorker::onAppQuit()
 {
     auto pMainThread = QCoreApplication::instance()->thread();
+    // I think memory leak during app closing is acceptable
+    m_pThread->setParent(nullptr);
     if (m_pThread->isRunning() || !m_pThread->isFinished()) {
         m_pThread->quit();
         while (m_pThread->isRunning() || !m_pThread->isFinished()) {
             pMainThread->msleep(100);
         }
     }
-}
+}*/

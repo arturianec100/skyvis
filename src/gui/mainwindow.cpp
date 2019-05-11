@@ -19,12 +19,16 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "../appinfo.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_pProject(new Project(this))
 {
     ui->setupUi(this);
+    setupMenubar();
+    setupToolbar();
 }
 
 MainWindow::~MainWindow()
@@ -37,15 +41,42 @@ Project *MainWindow::project() const
     return m_pProject;
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QThread *pMainThread = QThread::currentThread();
+    QList<QThread *> workerThreads = findChildren<QThread *>();
+    for (auto pThread : workerThreads) {
+        pThread->quit();
+    }
+    for (auto pThread : workerThreads) {
+        while (pThread->isRunning() || !pThread->isFinished()) {
+            pMainThread->msleep(100);
+        }
+    }
+    event->accept();
+}
+
 void MainWindow::openProjectDialog()
 {
     // TODO select dir and setup signals/slots
+}
+
+void MainWindow::aboutMessageBox()
+{
+    auto result = QMessageBox::information(this, tr("About"),
+                             tr("%1\nVersion: %2\nContributors: %3")
+                             .arg(AppInfo::DESCRIPTION)
+                             .arg(AppInfo::VERSION)
+                             .arg(AppInfo::CONTRIBUTORS));
+    Q_UNUSED(result)
 }
 
 void MainWindow::setupMenubar() const
 {
     connect(ui->actionOpen_Project, &QAction::triggered,
             this, &MainWindow::openProjectDialog);
+    connect(ui->actionAbout, &QAction::triggered,
+            this, &MainWindow::aboutMessageBox);
     connect(ui->actionQuit, &QAction::triggered,
             QApplication::instance(), &QApplication::quit);
 }

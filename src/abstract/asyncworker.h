@@ -33,9 +33,6 @@ public:
 
     QThread *thread() const;
 
-protected slots:
-    virtual void onAppQuit();
-
 private:
     QThread *m_pThread;
 };

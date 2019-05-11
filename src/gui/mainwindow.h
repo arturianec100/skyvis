@@ -22,8 +22,6 @@
 
 #include <QtCore>
 #include <QtWidgets>
-#include "menubarhelper.h"
-#include "toolbarhelper.h"
 #include "../project/project.h"
 
 namespace Ui {
@@ -40,8 +38,11 @@ public:
 
     Project *project() const;
 
+    virtual void closeEvent(QCloseEvent *event) override;
+
 public slots:
     void openProjectDialog();
+    void aboutMessageBox();
 
 protected:
     void setupMenubar() const;

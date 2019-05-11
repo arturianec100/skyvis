@@ -33,6 +33,7 @@ SOURCES += \
 
 HEADERS += \
     src/abstract/asyncworker.h \
+    src/appinfo.h \
     src/gui/mainwindow.h \
     src/premainwindowinitialization.h \
     src/project/project.h
