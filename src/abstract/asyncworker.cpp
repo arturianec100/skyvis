@@ -30,16 +30,3 @@ QThread *AsyncWorker::thread() const
 {
     return m_pThread;
 }
-/*
-void AsyncWorker::onAppQuit()
-{
-    auto pMainThread = QCoreApplication::instance()->thread();
-    // I think memory leak during app closing is acceptable
-    m_pThread->setParent(nullptr);
-    if (m_pThread->isRunning() || !m_pThread->isFinished()) {
-        m_pThread->quit();
-        while (m_pThread->isRunning() || !m_pThread->isFinished()) {
-            pMainThread->msleep(100);
-        }
-    }
-}*/

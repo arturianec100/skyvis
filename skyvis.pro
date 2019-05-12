@@ -26,6 +26,11 @@ CONFIG += c++11
 
 SOURCES += \
         src/abstract/asyncworker.cpp \
+        src/ast/area.cpp \
+        src/ast/connection.cpp \
+        src/ast/diagram.cpp \
+        src/ast/node.cpp \
+        src/common.cpp \
         src/gui/mainwindow.cpp \
         src/main.cpp \
         src/premainwindowinitialization.cpp \
@@ -34,6 +39,11 @@ SOURCES += \
 HEADERS += \
     src/abstract/asyncworker.h \
     src/appinfo.h \
+    src/ast/area.h \
+    src/ast/connection.h \
+    src/ast/diagram.h \
+    src/ast/node.h \
+    src/common.h \
     src/gui/mainwindow.h \
     src/premainwindowinitialization.h \
     src/project/project.h
