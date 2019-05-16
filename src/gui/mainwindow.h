@@ -40,6 +40,9 @@ public:
 
     virtual void closeEvent(QCloseEvent *event) override;
 
+signals:
+    void userSelectedDirOfProjectToOpen(QString dir);
+
 public slots:
     void openProjectDialog();
     void aboutMessageBox();

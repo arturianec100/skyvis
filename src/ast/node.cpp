@@ -80,6 +80,6 @@ void connectNodes(Node *fromNode, Node *toNode,
 {
     Connection *pConn = new Connection(fromNode, fromNode, toNode);
     pConn->setTypeName(typeName);
-    fromNode->output().append(Node::ConnectionPair(fromOutput, pConn));
-    toNode->input().append(Node::ConnectionPair(toInput, pConn));
+    fromNode->output().append(qMakePair(fromOutput, pConn));
+    toNode->input().append(qMakePair(toInput, pConn));
 }

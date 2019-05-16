@@ -14,7 +14,7 @@ Node *Connection::fromNode() const
 void Connection::setFromNode(Node *value)
 {
     m_pFromNode = value;
-    emit fromNodeChanged();
+    emit fromNodeChanged(value);
 }
 
 Node *Connection::toNode() const
@@ -25,7 +25,7 @@ Node *Connection::toNode() const
 void Connection::setToNode(Node *value)
 {
     m_pToNode = value;
-    emit toNodeChanged();
+    emit toNodeChanged(value);
 }
 
 QString Connection::typeName() const
@@ -36,5 +36,5 @@ QString Connection::typeName() const
 void Connection::setTypeName(const QString &typeName)
 {
     m_typeName = typeName;
-    emit typeNameChanged();
+    emit typeNameChanged(typeName);
 }

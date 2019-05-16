@@ -15,7 +15,7 @@ void Area::setName(const QString &name)
     m_name = name;
 }
 
-QLinkedList<Node *> &Area::nodes()
+Area::NodeList &Area::nodes()
 {
     return m_nodes;
 }

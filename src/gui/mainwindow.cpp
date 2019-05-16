@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setupMenubar();
     setupToolbar();
+
+    connect(this, &MainWindow::userSelectedDirOfProjectToOpen,
+            m_pProject, &Project::open);
 }
 
 MainWindow::~MainWindow()
@@ -58,7 +61,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::openProjectDialog()
 {
-    // TODO select dir and setup signals/slots
+    QString dirStr = QFileDialog::getExistingDirectory(this, tr("Select Project Directory"),
+                                                    QDir::homePath(),
+                                                    QFileDialog::ShowDirsOnly |
+                                                    QFileDialog::DontConfirmOverwrite |
+                                                    QFileDialog::ReadOnly);
+    emit userSelectedDirOfProjectToOpen(dirStr);
 }
 
 void MainWindow::aboutMessageBox()

@@ -26,9 +26,9 @@ public:
     void setTypeName(const QString &typeName);
 
 signals:
-    void fromNodeChanged();
-    void toNodeChanged();
-    void typeNameChanged();
+    void fromNodeChanged(Node *newFromNode);
+    void toNodeChanged(Node *newToNode);
+    void typeNameChanged(const QString &newTypeName);
 
 public slots:
 

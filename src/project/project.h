@@ -26,30 +26,30 @@
 class Project : public AsyncWorker
 {
     Q_OBJECT
-    Q_PROPERTY(QDir dir READ dir)
+    Q_PROPERTY(QString dir READ dir)
     Q_PROPERTY(bool opened READ isOpened)
 public:
     explicit Project(QObject *parent = nullptr);
 
-    QDir dir() const;
+    QString dir() const;
     bool isOpened() const;
 
 signals:
-    void opened(QDir dir);
-    void closed(QDir dir);
+    void opened(QString dir);
+    void closed(QString dir);
 
-    void startedOpening(QDir dir);
-    void startedClosing(QDir dir);
+    void startedOpening(QString dir);
+    void startedClosing(QString dir);
 
-    void errorOpening(QDir dir);
-    void errorClosing(QDir dir);
+    void errorOpening(QString dir);
+    void errorClosing(QString dir);
 
 public slots:
-    void open(QDir dir);
+    void open(QString dir);
     void close();
 
 private:
-    QDir m_dir;
+    QString m_dir;
     bool m_opened;
 };
 

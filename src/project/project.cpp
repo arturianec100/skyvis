@@ -24,7 +24,7 @@ Project::Project(QObject *parent) : AsyncWorker(parent)
 
 }
 
-QDir Project::dir() const
+QString Project::dir() const
 {
     return m_dir;
 }
@@ -34,7 +34,7 @@ bool Project::isOpened() const
     return m_opened;
 }
 
-void Project::open(QDir dir)
+void Project::open(QString dir)
 {
     // In future it can be long operation
     if (isOpened()) {
