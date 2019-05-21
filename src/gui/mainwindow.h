@@ -44,15 +44,29 @@ signals:
     void userSelectedDirOfProjectToOpen(QString dir);
 
 public slots:
+    void quitApplication();
+
+    void openDiagram(QString filePath);
+
     void openProjectDialog();
     void aboutMessageBox();
+    void updateProjectTree();
+
+    void onProjectTreeItemClicked(const QModelIndex &index);
 
 protected:
+    void stopWorkerThreads();
+
     void setupMenubar() const;
     void setupToolbar() const;
+    void setupProjectTree() const;
+    void setupFileList() const;
+    void setupObjectsHierarchy() const;
+    void setupObjectInspector() const;
 
 private:
     Ui::MainWindow *ui;
+    QFileSystemModel *m_pFSModel;
     Project *m_pProject;
 };
 

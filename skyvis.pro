@@ -33,8 +33,11 @@ SOURCES += \
         src/common.cpp \
         src/gui/mainwindow.cpp \
         src/main.cpp \
+        src/models/filelistmodel.cpp \
         src/premainwindowinitialization.cpp \
-        src/project/project.cpp
+        src/project/project.cpp \
+        src/serialization/diagramserializer.cpp \
+        src/storage/diagramstorage.cpp
 
 HEADERS += \
     src/abstract/asyncworker.h \
@@ -45,8 +48,12 @@ HEADERS += \
     src/ast/node.h \
     src/common.h \
     src/gui/mainwindow.h \
+    src/models/filelistmodel.h \
     src/premainwindowinitialization.h \
-    src/project/project.h
+    src/project/project.h \
+    src/serialization/diagramserializer.h \
+    src/storage/diagraminfo.h \
+    src/storage/diagramstorage.h
 
 FORMS += \
     src/gui/mainwindow.ui

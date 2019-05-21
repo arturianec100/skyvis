@@ -16,7 +16,9 @@
  ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include "storage/diagraminfo.h"
 
 void registerMetaTypes()
 {
+    qRegisterMetaType<DiagramInfo>();
 }

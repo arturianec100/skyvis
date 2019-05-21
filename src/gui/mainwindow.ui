@@ -24,16 +24,16 @@
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <widget class="QListView" name="filesList"/>
        <widget class="QTreeView" name="projectTree"/>
+       <widget class="QListView" name="fileList"/>
       </widget>
       <widget class="QGraphicsView" name="graphicsView"/>
       <widget class="QSplitter" name="rightVSplitter">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <widget class="QTableView" name="objectInspector"/>
-       <widget class="QTableView" name="objectsHierarchy"/>
+       <widget class="QTreeView" name="objectsHierarchy"/>
+       <widget class="QTreeView" name="objectInspector"/>
       </widget>
      </widget>
     </item>
