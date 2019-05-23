@@ -4,6 +4,12 @@
 #include <QtCore>
 #include "connection.h"
 
+/*!
+ * \brief AST Node of the diagram.
+ * \author arturianec100
+ *
+ * Connections are **lists of pairs** instead of **map** because order of connections is important.
+ */
 class Node : public QObject
 {
     Q_OBJECT
@@ -30,8 +36,8 @@ private:
     ConnectionList m_output;
 };
 
-void connectNodes(Node *fromNode, Node *toNode,
-                         QString &fromOutput, QString &toInput,
-                         QString &typeName);
+Connection *connectNodes(Node *fromNode, Node *toNode,
+                  QString &fromOutput, QString &toInput,
+                  QString &typeName);
 
 #endif // NODE_H

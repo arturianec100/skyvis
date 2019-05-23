@@ -5,6 +5,12 @@
 
 class Node;
 
+/*!
+ * \brief AST Connection between nodes.
+ * \author arturianec100
+ *
+ * Currently names of input and outout pins are handled by nodes. Thoughts about another structure are welcome, but **discuss before coding**.
+ */
 class Connection : public QObject
 {
     Q_OBJECT

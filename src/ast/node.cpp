@@ -42,6 +42,7 @@ Connection *Node::removeConnection(QString &connectionName)
 
 Connection *Node::removeConnection(Connection *connection)
 {
+    //! This version of iteration is used because **erase** requires an **iterator**
     for (auto itPair = m_output.begin(); itPair != m_output.end(); ++itPair) {
         if (itPair->second == connection) {
             m_output.erase(itPair);
@@ -75,11 +76,12 @@ void Node::disconnectFromAST()
     }
 }
 
-void connectNodes(Node *fromNode, Node *toNode,
-                  QString &fromOutput, QString &toInput, QString &typeName)
+Connection *connectNodes(Node *fromNode, Node *toNode,
+                   QString &fromOutput, QString &toInput, QString &typeName)
 {
     Connection *pConn = new Connection(fromNode, fromNode, toNode);
     pConn->setTypeName(typeName);
     fromNode->output().append(qMakePair(fromOutput, pConn));
     toNode->input().append(qMakePair(toInput, pConn));
+    return pConn;
 }

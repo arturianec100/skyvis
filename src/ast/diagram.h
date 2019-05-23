@@ -5,6 +5,10 @@
 #include "node.h"
 #include "area.h"
 
+/*!
+ * \brief AST Diagram.
+ * \author arturianec100
+ */
 class Diagram : public QObject
 {
     Q_OBJECT

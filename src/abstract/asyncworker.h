@@ -22,6 +22,13 @@
 
 #include <QtCore>
 
+/*!
+ * \brief This class should be inherited by objects that have to work in their own threads.
+ * \warning All communication with "outer world" **must** be done through signals/slots. All data should be passed as parameters. Violating of "data via arguments rule" will lead to data corruption by multiple threads. All instances must be indirect children of **MainWindow** because it destroys all worker threads before quitting the app. Violating of "child of main window rule" will lead to segfault on closing of the application.
+ * \author arturianec100
+ *
+ * **moveToThread** makes it children of the thread. So instead of parent-child there will be parent-thread-child.
+ */
 class AsyncWorker : public QObject
 {
     Q_OBJECT
