@@ -64,5 +64,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    LICENSE \
-    README.md
+    LICENSE.md \
+    README.md \
+    src/README.md \
+    src/abstract/README.md \
+    src/ast/README.md \
+    src/gui/README.md \
+    src/models/README.md \
+    src/project/README.md \
+    src/serialization/README.md \
+    src/storage/README.md

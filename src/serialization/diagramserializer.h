@@ -2,9 +2,10 @@
 #define DIAGRAMSERIALIZER_H
 
 #include <QtCore>
+#include "../abstract/asyncworker.h"
 #include "../storage/diagraminfo.h"
 
-class DiagramSerializer : public QObject
+class DiagramSerializer : public AsyncWorker
 {
     Q_OBJECT
 public:
@@ -12,16 +13,16 @@ public:
     virtual ~DiagramSerializer() override = default;
 
 signals:
-    void serialized(QString filePath);
-    void deserialized(QString filePath, DiagramInfo *diagram);
+    void serialized(QTextStream *pStream);
+    void deserialized(QTextStream *pStream, DiagramInfo *pDiagram);
 
     void serializationError(QString errorString);
     void deserializationError(QString errorString);
 
 public slots:
     // TODO: implement
-    void serialize(QString filePath, DiagramInfo *diagram);
-    void deserialize(QString filePath);
+    void serialize(QTextStream *pStream, DiagramInfo *pDiagram);
+    void deserialize(QTextStream *pStream);
 };
 
 #endif // DIAGRAMSERIALIZER_H

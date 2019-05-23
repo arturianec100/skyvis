@@ -1,0 +1,1 @@
+In **ast** directory should be code related to **ast** - structure of diagram, nodes and their relationship. Visualization code must live in **gui** layer. Code parsing and generation must live in their own layers.

@@ -1,6 +1,6 @@
 #include "diagramserializer.h"
 
-DiagramSerializer::DiagramSerializer(QObject *parent) : QObject(parent)
+DiagramSerializer::DiagramSerializer(QObject *parent) : AsyncWorker(parent)
 {
 
 }

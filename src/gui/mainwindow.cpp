@@ -112,7 +112,7 @@ void MainWindow::stopWorkerThreads()
     }
     for (auto pThread : workerThreads) {
         while (pThread->isRunning() || !pThread->isFinished()) {
-            pMainThread->msleep(100);
+            pMainThread->wait();
         }
     }
 }
