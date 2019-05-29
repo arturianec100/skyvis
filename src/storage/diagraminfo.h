@@ -5,14 +5,19 @@
 #include <QtWidgets>
 #include "../ast/diagram.h"
 
+/*!
+ * \brief The _low level_ struct that contain data required for DiagramStorage
+ * \author arturianec100
+ */
 struct DiagramInfo {
-    QFile *file;
-    QGraphicsScene *scene;
-    Diagram *ast;
+    QFile *m_pFile;
+    QGraphicsScene *m_pScene;
+    Diagram *m_pAst;
 
-    DiagramInfo() = default;
+    DiagramInfo(QFile *file = nullptr, QGraphicsScene *scene = nullptr,
+                Diagram *ast = nullptr);
     DiagramInfo(const DiagramInfo &other) = default;
-    ~DiagramInfo() = default;
+    ~DiagramInfo();
 };
 
 Q_DECLARE_METATYPE(DiagramInfo);

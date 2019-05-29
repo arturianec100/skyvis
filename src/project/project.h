@@ -23,6 +23,10 @@
 #include <QtCore>
 #include "../abstract/asyncworker.h"
 
+/*!
+ * \brief The Project as collection of diagrams and related data
+ * \author arturianec100
+ */
 class Project : public AsyncWorker
 {
     Q_OBJECT

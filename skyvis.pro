@@ -37,6 +37,7 @@ SOURCES += \
         src/premainwindowinitialization.cpp \
         src/project/project.cpp \
         src/serialization/diagramserializer.cpp \
+        src/storage/diagraminfo.cpp \
         src/storage/diagramstorage.cpp
 
 HEADERS += \
