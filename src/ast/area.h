@@ -15,6 +15,8 @@ class Area : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName)
 public:
+    using NodeList = QLinkedList<Node *>;
+
     explicit Area(QObject *parent = nullptr);
     virtual ~Area() override = default;
 

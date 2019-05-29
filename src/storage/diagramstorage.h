@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include "diagraminfo.h"
+#include "../serialization/diagramserializer.h"
 
 /*!
  * \brief Stores diagrams at RAM and ROM. Provides API for manual opening and closing diagrams
@@ -17,18 +18,42 @@ public:
 
 signals:
     void opened(QString filePath);
-    void closed(QString fileName);
+    void closed(DiagramInfo *pDiagram);
+    void saved(QString filePath);
+
+    void errorOpening(QString errorMessage);
+    void errorClosing(QString errorMessage);
+    void errorSaving(QString errorMessage);
+
+    void serializationRequested(QTextStream *pStream, DiagramInfo *pDiagram);
+    void deserializationRequested(QTextStream *pStream, DiagramInfo *pDiagram);
 
 public slots:
-    // TODO: implement
     void open(QString filePath);
-    void close(QString fileName);
+    void close(DiagramInfo *pDiagram);
+    void save(QString filePath, DiagramInfo *pDiagram);
+    void saveAndCloseAll();
+
+protected slots:
+    void onSerialized(QTextStream *pStream, DiagramInfo *pDiagram);
+    void onDeserialized(QTextStream *pStream, DiagramInfo *pDiagram);
+
+    void onSerializationError(QString errorString);
+    void onDeserializationError(QString errorString);
 
 protected:
-    void closeAll();
+    void free(DiagramInfo *pDiagram);
+    void closeStream(QFile *pFile);
+    void closeStream(QTextStream *pStream);
 
 private:
     QVector<DiagramInfo *> m_diagrams;
+    QLinkedList<QPair<QFile *, QTextStream *>> m_activeStreams;
+    QLinkedList<DiagramInfo *> m_dirtyDiagrams;
+    QLinkedList<QPair<QString, DiagramInfo *>> m_aboutToCloseDiagrams;
+    QStringList m_openingDiagrams;
+    QStringList m_closingDiagrams;
+    DiagramSerializer *m_pSerializer;
 };
 
 #endif // DIAGRAMSTORAGE_H

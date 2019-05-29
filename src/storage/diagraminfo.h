@@ -10,12 +10,12 @@
  * \author arturianec100
  */
 struct DiagramInfo {
-    QFile *m_pFile;
+    QString m_filePath;
     QGraphicsScene *m_pScene;
     Diagram *m_pAst;
 
-    DiagramInfo(QFile *file = nullptr, QGraphicsScene *scene = nullptr,
-                Diagram *ast = nullptr);
+    DiagramInfo(QString filePath = QString(), QGraphicsScene *pScene = nullptr,
+                Diagram *pAst = nullptr);
     DiagramInfo(const DiagramInfo &other) = default;
     ~DiagramInfo();
 };

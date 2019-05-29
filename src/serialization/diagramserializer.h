@@ -17,16 +17,16 @@ public:
     virtual ~DiagramSerializer() override = default;
 
 signals:
-    void serialized(QTextStream &stream);
-    void deserialized(QTextStream &stream, DiagramInfo *pDiagram);
+    void serialized(QTextStream *pStream, DiagramInfo *pDiagram);
+    void deserialized(QTextStream *pStream, DiagramInfo *pDiagram);
 
     void serializationError(QString errorString);
     void deserializationError(QString errorString);
 
 public slots:
     // TODO: implement
-    void serialize(QTextStream &stream, DiagramInfo *pDiagram);
-    void deserialize(QTextStream &stream);
+    void serialize(QTextStream *pStream, DiagramInfo *pDiagram);
+    void deserialize(QTextStream *pStream, DiagramInfo *pDiagram);
 };
 
 #endif // DIAGRAMSERIALIZER_H
