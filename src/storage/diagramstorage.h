@@ -20,6 +20,7 @@ signals:
     void opened(QString filePath);
     void closed(DiagramInfo *pDiagram);
     void saved(QString filePath);
+    void savedAndClosedAll();
 
     void errorOpening(QString errorMessage);
     void errorClosing(QString errorMessage);
@@ -43,16 +44,14 @@ protected slots:
 
 protected:
     void free(DiagramInfo *pDiagram);
-    void closeStream(QFile *pFile);
-    void closeStream(QTextStream *pStream);
+    QString closeStreamAndGetFilePath(QFile *pFile);
+    QString closeStreamAndGetFilePath(QTextStream *pStream);
 
 private:
     QVector<DiagramInfo *> m_diagrams;
     QLinkedList<QPair<QFile *, QTextStream *>> m_activeStreams;
     QLinkedList<DiagramInfo *> m_dirtyDiagrams;
     QLinkedList<QPair<QString, DiagramInfo *>> m_aboutToCloseDiagrams;
-    QStringList m_openingDiagrams;
-    QStringList m_closingDiagrams;
     DiagramSerializer *m_pSerializer;
 };
 

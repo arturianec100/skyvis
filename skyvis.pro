@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         src/abstract/asyncworker.cpp \
+        src/abstract/serializer.cpp \
         src/ast/area.cpp \
         src/ast/connection.cpp \
         src/ast/diagram.cpp \
@@ -36,12 +37,12 @@ SOURCES += \
         src/models/filelistmodel.cpp \
         src/premainwindowinitialization.cpp \
         src/project/project.cpp \
-        src/serialization/diagramserializer.cpp \
         src/storage/diagraminfo.cpp \
         src/storage/diagramstorage.cpp
 
 HEADERS += \
     src/abstract/asyncworker.h \
+    src/abstract/serializer.h \
     src/appinfo.h \
     src/ast/area.h \
     src/ast/connection.h \
@@ -52,7 +53,6 @@ HEADERS += \
     src/models/filelistmodel.h \
     src/premainwindowinitialization.h \
     src/project/project.h \
-    src/serialization/diagramserializer.h \
     src/storage/diagraminfo.h \
     src/storage/diagramstorage.h
 
