@@ -1,20 +1,21 @@
 #include "diagramstorage.h"
 #include <algorithm>
+#include "../serialization/diagramserializer.h"
 
 DiagramStorage::DiagramStorage(QObject *parent) : QObject(parent),
     m_pSerializer(new DiagramSerializer(this))
 {
     connect(this, &DiagramStorage::serializationRequested,
-            m_pSerializer, &DiagramSerializer::serialize);
+            m_pSerializer, &Serializer::serialize);
     connect(this, &DiagramStorage::deserializationRequested,
-            m_pSerializer, &DiagramSerializer::deserialize);
-    connect(m_pSerializer, &DiagramSerializer::serialized,
+            m_pSerializer, &Serializer::deserialize);
+    connect(m_pSerializer, &Serializer::serialized,
             this, &DiagramStorage::onSerialized);
-    connect(m_pSerializer, &DiagramSerializer::deserialized,
+    connect(m_pSerializer, &Serializer::deserialized,
             this, &DiagramStorage::onDeserialized);
-    connect(m_pSerializer, &DiagramSerializer::serializationError,
+    connect(m_pSerializer, &Serializer::serializationError,
             this, &DiagramStorage::onSerializationError);
-    connect(m_pSerializer, &DiagramSerializer::deserializationError,
+    connect(m_pSerializer, &Serializer::deserializationError,
             this, &DiagramStorage::onDeserializationError);
 }
 
@@ -33,7 +34,7 @@ void DiagramStorage::open(QString filePath)
     QTextStream *pStream = new QTextStream(pFile);
     m_activeStreams.append(qMakePair(pFile, pStream));
     DiagramInfo *pDiagram = new DiagramInfo(filePath);
-    emit deserializationRequested(pStream, pDiagram);
+    emit deserializationRequested(pStream, QVariant::fromValue(pDiagram));
 }
 
 void DiagramStorage::close(DiagramInfo *pDiagram)
@@ -66,7 +67,7 @@ void DiagramStorage::save(QString filePath, DiagramInfo *pDiagram)
     }
     QTextStream *pStream = new QTextStream(pFile);
     m_activeStreams.append(qMakePair(pFile, pStream));
-    emit deserializationRequested(pStream, pDiagram);
+    emit deserializationRequested(pStream, QVariant::fromValue(pDiagram));
 }
 
 void DiagramStorage::saveAndCloseAll()
@@ -80,8 +81,9 @@ void DiagramStorage::saveAndCloseAll()
     emit savedAndClosedAll();
 }
 
-void DiagramStorage::onSerialized(QTextStream *pStream, DiagramInfo *pDiagram)
+void DiagramStorage::onSerialized(QTextStream *pStream, QVariant data)
 {
+    DiagramInfo *pDiagram = data.value<DiagramInfo *>();
     m_dirtyDiagrams.removeAll(pDiagram);
     QString filePath = closeStreamAndGetFilePath(pStream);
     emit saved(filePath);
@@ -95,8 +97,9 @@ void DiagramStorage::onSerialized(QTextStream *pStream, DiagramInfo *pDiagram)
     }
 }
 
-void DiagramStorage::onDeserialized(QTextStream *pStream, DiagramInfo *pDiagram)
+void DiagramStorage::onDeserialized(QTextStream *pStream, QVariant data)
 {
+    DiagramInfo *pDiagram = data.value<DiagramInfo *>();
     m_diagrams.append(pDiagram);
     QString filePath = closeStreamAndGetFilePath(pStream);
     emit opened(filePath);

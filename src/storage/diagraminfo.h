@@ -21,5 +21,6 @@ struct DiagramInfo {
 };
 
 Q_DECLARE_METATYPE(DiagramInfo);
+Q_DECLARE_METATYPE(DiagramInfo*);
 
 #endif // DIAGRAMINFO_H

@@ -3,7 +3,7 @@
 
 #include <QtCore>
 #include "diagraminfo.h"
-#include "../serialization/diagramserializer.h"
+#include "../abstract/serializer.h"
 
 /*!
  * \brief Stores diagrams at RAM and ROM. Provides API for manual opening and closing diagrams
@@ -26,8 +26,8 @@ signals:
     void errorClosing(QString errorMessage);
     void errorSaving(QString errorMessage);
 
-    void serializationRequested(QTextStream *pStream, DiagramInfo *pDiagram);
-    void deserializationRequested(QTextStream *pStream, DiagramInfo *pDiagram);
+    void serializationRequested(QTextStream *pStream, QVariant data);
+    void deserializationRequested(QTextStream *pStream, QVariant data);
 
 public slots:
     void open(QString filePath);
@@ -36,8 +36,8 @@ public slots:
     void saveAndCloseAll();
 
 protected slots:
-    void onSerialized(QTextStream *pStream, DiagramInfo *pDiagram);
-    void onDeserialized(QTextStream *pStream, DiagramInfo *pDiagram);
+    void onSerialized(QTextStream *pStream, QVariant data);
+    void onDeserialized(QTextStream *pStream, QVariant data);
 
     void onSerializationError(QString errorString);
     void onDeserializationError(QString errorString);
@@ -52,7 +52,7 @@ private:
     QLinkedList<QPair<QFile *, QTextStream *>> m_activeStreams;
     QLinkedList<DiagramInfo *> m_dirtyDiagrams;
     QLinkedList<QPair<QString, DiagramInfo *>> m_aboutToCloseDiagrams;
-    DiagramSerializer *m_pSerializer;
+    Serializer *m_pSerializer;
 };
 
 #endif // DIAGRAMSTORAGE_H

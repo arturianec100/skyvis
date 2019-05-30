@@ -37,6 +37,7 @@ SOURCES += \
         src/models/filelistmodel.cpp \
         src/premainwindowinitialization.cpp \
         src/project/project.cpp \
+        src/serialization/diagramserializer.cpp \
         src/storage/diagraminfo.cpp \
         src/storage/diagramstorage.cpp
 
@@ -53,6 +54,7 @@ HEADERS += \
     src/models/filelistmodel.h \
     src/premainwindowinitialization.h \
     src/project/project.h \
+    src/serialization/diagramserializer.h \
     src/storage/diagraminfo.h \
     src/storage/diagramstorage.h
 
