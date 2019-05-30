@@ -3,7 +3,7 @@
 
 #include <QtCore>
 #include "diagraminfo.h"
-#include "../abstract/serializer.h"
+#include "../serialization/diagramserializer.h"
 
 /*!
  * \brief Stores diagrams at RAM and ROM. Provides API for manual opening and closing diagrams
@@ -52,7 +52,7 @@ private:
     QLinkedList<QPair<QFile *, QTextStream *>> m_activeStreams;
     QLinkedList<DiagramInfo *> m_dirtyDiagrams;
     QLinkedList<QPair<QString, DiagramInfo *>> m_aboutToCloseDiagrams;
-    Serializer *m_pSerializer;
+    DiagramSerializer *m_pSerializer;
 };
 
 #endif // DIAGRAMSTORAGE_H

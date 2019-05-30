@@ -1,21 +1,20 @@
 #include "diagramstorage.h"
 #include <algorithm>
-#include "../serialization/diagramserializer.h"
 
 DiagramStorage::DiagramStorage(QObject *parent) : QObject(parent),
     m_pSerializer(new DiagramSerializer(this))
 {
     connect(this, &DiagramStorage::serializationRequested,
-            m_pSerializer, &Serializer::serialize);
+            m_pSerializer, &DiagramSerializer::serialize);
     connect(this, &DiagramStorage::deserializationRequested,
-            m_pSerializer, &Serializer::deserialize);
-    connect(m_pSerializer, &Serializer::serialized,
+            m_pSerializer, &DiagramSerializer::deserialize);
+    connect(m_pSerializer, &DiagramSerializer::serialized,
             this, &DiagramStorage::onSerialized);
-    connect(m_pSerializer, &Serializer::deserialized,
+    connect(m_pSerializer, &DiagramSerializer::deserialized,
             this, &DiagramStorage::onDeserialized);
-    connect(m_pSerializer, &Serializer::serializationError,
+    connect(m_pSerializer, &DiagramSerializer::serializationError,
             this, &DiagramStorage::onSerializationError);
-    connect(m_pSerializer, &Serializer::deserializationError,
+    connect(m_pSerializer, &DiagramSerializer::deserializationError,
             this, &DiagramStorage::onDeserializationError);
 }
 
