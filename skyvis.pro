@@ -26,7 +26,8 @@ CONFIG += c++11
 
 SOURCES += \
         src/abstract/asyncworker.cpp \
-        src/abstract/serializer.cpp \
+        src/abstract/textserializer.cpp \
+        src/abstract/xmlserializer.cpp \
         src/ast/area.cpp \
         src/ast/connection.cpp \
         src/ast/diagram.cpp \
@@ -43,7 +44,8 @@ SOURCES += \
 
 HEADERS += \
     src/abstract/asyncworker.h \
-    src/abstract/serializer.h \
+    src/abstract/textserializer.h \
+    src/abstract/xmlserializer.h \
     src/appinfo.h \
     src/ast/area.h \
     src/ast/connection.h \

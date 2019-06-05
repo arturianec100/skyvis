@@ -2,9 +2,9 @@
 #define DIAGRAMSERIALIZER_H
 
 #include <QtCore>
-#include "../abstract/serializer.h"
+#include "../abstract/textserializer.h"
 
-class DiagramSerializer : public Serializer
+class DiagramSerializer : public TextSerializer
 {
     Q_OBJECT
 public:
@@ -19,11 +19,8 @@ public slots:
     virtual void serialize(QTextStream *pStream, QVariant data) override;
     virtual void deserialize(QTextStream *pStream, QVariant data) override;
 
-protected:
-    void addSerializer(Serializer *pSerializer);
-
 private:
-    QVector<Serializer *> m_serializers;
+    // TODO: use xml serializers
 };
 
 #endif // DIAGRAMSERIALIZER_H

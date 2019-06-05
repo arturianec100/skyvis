@@ -1,6 +1,6 @@
 #include "diagramserializer.h"
 
-DiagramSerializer::DiagramSerializer(QObject *parent) : Serializer(parent)
+DiagramSerializer::DiagramSerializer(QObject *parent) : TextSerializer(parent)
 {
 
 }
@@ -21,11 +21,4 @@ void DiagramSerializer::deserialize(QTextStream *pStream, QVariant data)
     } else {
         emit deserializationError(tr("Can't deserialize a diagram because DiagramSerializer wasn't properly constructed"));
     }
-}
-
-void DiagramSerializer::addSerializer(Serializer *pSerializer)
-{
-    pSerializer->setParent(this);
-    // TODO connect and disconnect s/s on serializers
-    m_serializers.append(pSerializer);
 }
