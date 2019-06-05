@@ -13,3 +13,8 @@ DiagramInfo::~DiagramInfo()
     SAFE_DELETE(m_pScene)
     SAFE_DELETE(m_pAst)
 }
+
+QString DiagramInfo::name() const
+{
+    return m_filePath.split("/").last();
+}

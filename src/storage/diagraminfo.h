@@ -18,6 +18,8 @@ struct DiagramInfo {
                 Diagram *pAst = nullptr);
     DiagramInfo(const DiagramInfo &other) = default;
     ~DiagramInfo();
+
+    QString name() const;
 };
 
 Q_DECLARE_METATYPE(DiagramInfo);

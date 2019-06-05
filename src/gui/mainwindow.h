@@ -23,6 +23,7 @@
 #include <QtCore>
 #include <QtWidgets>
 #include "../project/project.h"
+#include "diagramspace.h"
 
 namespace Ui {
 class MainWindow;
@@ -60,14 +61,13 @@ protected:
     void setupMenubar() const;
     void setupToolbar() const;
     void setupProjectTree() const;
-    void setupFileList() const;
     void setupObjectsHierarchy() const;
-    void setupObjectInspector() const;
 
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *m_pFSModel;
     Project *m_pProject;
+    DiagramSpace *m_pSpace;
 };
 
 #endif // MAINWINDOW_H

@@ -33,6 +33,7 @@ SOURCES += \
         src/ast/diagram.cpp \
         src/ast/node.cpp \
         src/common.cpp \
+        src/gui/diagramspace.cpp \
         src/gui/mainwindow.cpp \
         src/main.cpp \
         src/models/filelistmodel.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
     src/ast/diagram.h \
     src/ast/node.h \
     src/common.h \
+    src/gui/diagramspace.h \
     src/gui/mainwindow.h \
     src/models/filelistmodel.h \
     src/premainwindowinitialization.h \

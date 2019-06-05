@@ -26,7 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_pFSModel(new QFileSystemModel),
-    m_pProject(new Project(this))
+    m_pProject(new Project(this)),
+    m_pSpace(new DiagramSpace(this, ui->tabWidget))
 {
     ui->setupUi(this);
     setupMenubar();
@@ -66,16 +67,16 @@ void MainWindow::quitApplication()
 
 void MainWindow::openDiagram(QString filePath)
 {
-
+    m_pSpace->openDiagram(filePath);
 }
 
 void MainWindow::openProjectDialog()
 {
     QString dirStr = QFileDialog::getExistingDirectory(this, tr("Select Project Directory"),
-                                                    QDir::homePath(),
-                                                    QFileDialog::ShowDirsOnly |
-                                                    QFileDialog::DontConfirmOverwrite |
-                                                    QFileDialog::ReadOnly);
+                                               QDir::homePath(),
+                                               QFileDialog::ShowDirsOnly |
+                                               QFileDialog::DontConfirmOverwrite |
+                                               QFileDialog::ReadOnly);
     emit userSelectedDirOfProjectToOpen(dirStr);
 }
 
@@ -142,17 +143,7 @@ void MainWindow::setupProjectTree() const
     }
 }
 
-void MainWindow::setupFileList() const
-{
-
-}
-
 void MainWindow::setupObjectsHierarchy() const
-{
-
-}
-
-void MainWindow::setupObjectInspector() const
 {
 
 }
