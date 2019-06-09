@@ -51,8 +51,13 @@ signals:
 public slots:
     void open(QString filePath);
     void close(DiagramInfo *pDiagram);
+    void save(DiagramInfo *pDiagram);
     void save(QString filePath, DiagramInfo *pDiagram);
     void saveAndCloseAll();
+
+    // TODO: implement
+    void markAsDirty(DiagramInfo *pDiagram);
+    void markAsSaved(DiagramInfo *pDiagram);
 
 protected slots:
     void onSerialized(QTextStream *pStream, QVariant data);

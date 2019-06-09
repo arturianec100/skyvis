@@ -20,13 +20,23 @@
 #include "diagramspace.h"
 
 DiagramSpace::DiagramSpace(QObject *parent, QTabWidget *pTabs) : QObject(parent),
-    m_pTabs(pTabs), m_pStorage(new DiagramStorage(this))
+    m_pTabs(pTabs), m_pStorage(new DiagramStorage(this)),
+    m_pCurrentDiagram(nullptr), m_pCurrentDiagramForSaving(nullptr)
 {
     m_pTabs->removeTab(1);
     m_pTabs->removeTab(0);
 
     connect(this, &DiagramSpace::diagramOpeningRequested,
             m_pStorage, &DiagramStorage::open);
+    connect(this, &DiagramSpace::diagramClosingRequested,
+            m_pStorage, &DiagramStorage::close);
+    connect(this, &DiagramSpace::diagramSavingRequested,
+            m_pStorage, qOverload<DiagramInfo *>(&DiagramStorage::save));
+
+    connect(m_pTabs, &QTabWidget::currentChanged,
+            this, &DiagramSpace::updateCurrentDiagram);
+    connect(m_pTabs, &QTabWidget::tabCloseRequested,
+            this, &DiagramSpace::closeDiagram);
 }
 
 QTabWidget *DiagramSpace::tabs() const
@@ -39,7 +49,32 @@ void DiagramSpace::openDiagram(QString fileName)
     emit diagramOpeningRequested(fileName);
 }
 
-void DiagramSpace::showOpenedDiagram(DiagramInfo *pDiagram)
+void DiagramSpace::closeDiagram(int index)
+{
+    if (auto *pDiagram = m_diagramIndexes[index]) {
+        m_diagramIndexes.removeAt(index);
+        emit diagramClosingRequested(pDiagram);
+    } else {
+        emit errorClosingDiagram(tr("Can't close diagram at tab %1 because it wasn't opened").arg(index));
+    }
+}
+
+void DiagramSpace::saveCurrentDiagram()
+{
+    if (m_diagramIndexes.length() > 0) {
+        m_pCurrentDiagramForSaving = currentDiagram();
+        emit diagramSavingRequested(m_pCurrentDiagramForSaving);
+    } else {
+        emit errorSavingDiagram(tr("Can't save diagram because no diagram was opened"));
+    }
+}
+
+void DiagramSpace::saveAndCloseAllDiagrams()
+{
+    emit closingAllDiagramsRequested();
+}
+
+void DiagramSpace::addTabForDiagram(DiagramInfo *pDiagram)
 {
     QGraphicsView *pView = new QGraphicsView;
     pView->setScene(pDiagram->m_pScene);
@@ -48,4 +83,14 @@ void DiagramSpace::showOpenedDiagram(DiagramInfo *pDiagram)
     m_pTabs->setCurrentIndex(index);
 
     m_diagramIndexes.insert(index, pDiagram);
+}
+
+DiagramInfo *DiagramSpace::currentDiagram() const
+{
+    return m_pCurrentDiagram;
+}
+
+void DiagramSpace::updateCurrentDiagram(int index)
+{
+    m_pCurrentDiagram = m_diagramIndexes[index];
 }

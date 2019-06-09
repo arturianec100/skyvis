@@ -32,30 +32,57 @@
 class DiagramSpace : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QTabWidget tabs READ tabs)
+    Q_PROPERTY(QTabWidget* tabs READ tabs)
+    Q_PROPERTY(DiagramInfo* currentDiagram READ currentDiagram)
 public:
-    using TabViewPair = QPair<QTab *, QGraphicsView *>;
-
     explicit DiagramSpace(QObject *parent, QTabWidget *pTabs);
     virtual ~DiagramSpace() override = default;
 
     QTabWidget *tabs() const;
 
+    DiagramInfo *currentDiagram() const;
+
 signals:
-    // TODO: connect with storage
     void diagramOpeningRequested(QString fileName);
-    void diagramClosingRequested(QString fileName);
+    void diagramClosingRequested(DiagramInfo *pDiagram);
+    void diagramSavingRequested(DiagramInfo *pDiagram);
+    void closingAllDiagramsRequested();
+
+    void currentDiagramSaved();
+    void allDiagramsSavedAndClosed();
+
+    void errorOpeningDiagram(QString errorString);
+    void errorClosingDiagram(QString errorString);
+    void errorSavingDiagram(QString errorString);
 
 public slots:
     void openDiagram(QString fileName);
     void closeDiagram(int index);
+    void saveCurrentDiagram();
+    void saveAndCloseAllDiagrams();
 
-    void showOpenedDiagram(DiagramInfo *pDiagram);
+    void addTabForDiagram(DiagramInfo *pDiagram);
+
+protected slots:
+    // TODO: implement
+    void onOpened(QString filePath);
+    void onClosed(DiagramInfo *pDiagram);
+    void onSaved(QString filePath);
+    void onSavedAndClosedAll();
+
+    void onErrorOpeningDiagram(QString errorString);
+    void onErrorClosingDiagram(QString errorString);
+    void onErrorSavingDiagram(QString errorString);
+
+protected:
+    void updateCurrentDiagram(int index);
 
 private:
     QTabWidget *m_pTabs;
     DiagramStorage *m_pStorage;
-    QMap<int, DiagramInfo *> m_diagramIndexes;
+    QList<DiagramInfo *> m_diagramIndexes;
+    DiagramInfo *m_pCurrentDiagram;
+    DiagramInfo *m_pCurrentDiagramForSaving;
 };
 
 #endif // DIAGRAMSPACE_H

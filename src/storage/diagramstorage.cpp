@@ -71,6 +71,11 @@ void DiagramStorage::close(DiagramInfo *pDiagram)
     }
 }
 
+void DiagramStorage::save(DiagramInfo *pDiagram)
+{
+    save(pDiagram->m_filePath, pDiagram);
+}
+
 void DiagramStorage::save(QString filePath, DiagramInfo *pDiagram)
 {
     if ((pDiagram == nullptr) || (!m_diagrams.contains(pDiagram))) {
