@@ -25,14 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
 
 SOURCES += \
-        src/abstract/asyncworker.cpp \
-        src/abstract/textserializer.cpp \
-        src/abstract/xmlserializer.cpp \
         src/ast/area.cpp \
+        src/ast/astelement.cpp \
         src/ast/connection.cpp \
         src/ast/diagram.cpp \
         src/ast/node.cpp \
+        src/asyncworker.cpp \
         src/common.cpp \
+        src/customqobject.cpp \
+        src/errorinfo.cpp \
         src/gui/diagramspace.cpp \
         src/gui/mainwindow.cpp \
         src/main.cpp \
@@ -40,25 +41,30 @@ SOURCES += \
         src/premainwindowinitialization.cpp \
         src/project/project.cpp \
         src/serialization/diagramserializer.cpp \
+        src/serialization/textserializer.cpp \
+        src/serialization/xmlserializer.cpp \
         src/storage/diagraminfo.cpp \
         src/storage/diagramstorage.cpp
 
 HEADERS += \
-    src/abstract/asyncworker.h \
-    src/abstract/textserializer.h \
-    src/abstract/xmlserializer.h \
     src/appinfo.h \
     src/ast/area.h \
+    src/ast/astelement.h \
     src/ast/connection.h \
     src/ast/diagram.h \
     src/ast/node.h \
+    src/asyncworker.h \
     src/common.h \
+    src/customqobject.h \
+    src/errorinfo.h \
     src/gui/diagramspace.h \
     src/gui/mainwindow.h \
     src/models/filelistmodel.h \
     src/premainwindowinitialization.h \
     src/project/project.h \
     src/serialization/diagramserializer.h \
+    src/serialization/textserializer.h \
+    src/serialization/xmlserializer.h \
     src/storage/diagraminfo.h \
     src/storage/diagramstorage.h
 

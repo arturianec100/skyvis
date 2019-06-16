@@ -19,7 +19,8 @@
 
 #include "connection.h"
 
-Connection::Connection(QObject *parent, Node *from, Node *to) : QObject(parent),
+Connection::Connection(QObject *parent, Node *from, Node *to) :
+    AstElement(parent),
     m_pFromNode(from), m_pToNode(to)
 {
 

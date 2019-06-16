@@ -19,7 +19,8 @@
 
 #include "diagramspace.h"
 
-DiagramSpace::DiagramSpace(QObject *parent, QTabWidget *pTabs) : QObject(parent),
+DiagramSpace::DiagramSpace(QObject *parent, QTabWidget *pTabs) :
+    CustomQObject(parent),
     m_pTabs(pTabs), m_pStorage(new DiagramStorage(this)),
     m_pCurrentDiagram(nullptr), m_pCurrentDiagramForSaving(nullptr)
 {
@@ -55,7 +56,7 @@ void DiagramSpace::closeDiagram(int index)
         m_diagramIndexes.removeAt(index);
         emit diagramClosingRequested(pDiagram);
     } else {
-        emit errorClosingDiagram(tr("Can't close diagram at tab %1 because it wasn't opened").arg(index));
+        emit errorOccurred(ErrorInfo("storage", tr("Can't close diagram at tab %1").arg(index), tr("Diagram wasn't opened")));
     }
 }
 
@@ -65,7 +66,7 @@ void DiagramSpace::saveCurrentDiagram()
         m_pCurrentDiagramForSaving = currentDiagram();
         emit diagramSavingRequested(m_pCurrentDiagramForSaving);
     } else {
-        emit errorSavingDiagram(tr("Can't save diagram because no diagram was opened"));
+        emit errorOccurred(ErrorInfo("serialization", tr("Can't save diagram"), tr("Diagram wasn't opened")));
     }
 }
 
@@ -83,6 +84,31 @@ void DiagramSpace::addTabForDiagram(DiagramInfo *pDiagram)
     m_pTabs->setCurrentIndex(index);
 
     m_diagramIndexes.insert(index, pDiagram);
+}
+
+void DiagramSpace::onOpened(QString filePath)
+{
+
+}
+
+void DiagramSpace::onClosed(DiagramInfo *pDiagram)
+{
+
+}
+
+void DiagramSpace::onSaved(QString filePath)
+{
+
+}
+
+void DiagramSpace::onSavedAndClosedAll()
+{
+
+}
+
+void DiagramSpace::onDiagramStorageError(ErrorInfo error)
+{
+
 }
 
 DiagramInfo *DiagramSpace::currentDiagram() const

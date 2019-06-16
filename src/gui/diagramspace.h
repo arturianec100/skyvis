@@ -22,6 +22,7 @@
 
 #include <QtCore>
 #include <QtWidgets>
+#include "../customqobject.h"
 #include "../storage/diagraminfo.h"
 #include "../storage/diagramstorage.h"
 
@@ -29,7 +30,7 @@
  * \brief The fasade for all diagram related stuff
  * \author arturianec100
  */
-class DiagramSpace : public QObject
+class DiagramSpace : public CustomQObject
 {
     Q_OBJECT
     Q_PROPERTY(QTabWidget* tabs READ tabs)
@@ -51,9 +52,7 @@ signals:
     void currentDiagramSaved();
     void allDiagramsSavedAndClosed();
 
-    void errorOpeningDiagram(QString errorString);
-    void errorClosingDiagram(QString errorString);
-    void errorSavingDiagram(QString errorString);
+    //virtual void errorO
 
 public slots:
     void openDiagram(QString fileName);
@@ -70,9 +69,7 @@ protected slots:
     void onSaved(QString filePath);
     void onSavedAndClosedAll();
 
-    void onErrorOpeningDiagram(QString errorString);
-    void onErrorClosingDiagram(QString errorString);
-    void onErrorSavingDiagram(QString errorString);
+    void onDiagramStorageError(ErrorInfo error);
 
 protected:
     void updateCurrentDiagram(int index);

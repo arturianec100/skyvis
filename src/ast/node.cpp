@@ -20,7 +20,7 @@
 #include "node.h"
 #include "../common.h"
 
-Node::Node(QObject *parent) : QObject(parent)
+Node::Node(QObject *parent) : AstElement(parent)
 {
 
 }

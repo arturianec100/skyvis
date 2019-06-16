@@ -20,7 +20,7 @@
 #include "asyncworker.h"
 
 AsyncWorker::AsyncWorker(QObject *parent, QThread::Priority priority) :
-    QObject(nullptr), m_pThread(new QThread(parent))
+    CustomQObject(nullptr), m_pThread(new QThread(parent))
 {
     moveToThread(m_pThread);
     m_pThread->start(priority);

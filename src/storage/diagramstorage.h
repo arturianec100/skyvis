@@ -22,13 +22,14 @@
 
 #include <QtCore>
 #include "diagraminfo.h"
+#include "../customqobject.h"
 #include "../serialization/diagramserializer.h"
 
 /*!
  * \brief Stores diagrams at RAM and ROM. Provides API for manual opening and closing diagrams
  * \author arturianec100
  */
-class DiagramStorage : public QObject
+class DiagramStorage : public CustomQObject
 {
     Q_OBJECT
 public:
@@ -41,9 +42,7 @@ signals:
     void saved(QString filePath);
     void savedAndClosedAll();
 
-    void errorOpening(QString errorMessage);
-    void errorClosing(QString errorMessage);
-    void errorSaving(QString errorMessage);
+    virtual void errorOccurred(ErrorInfo error) override;
 
     void serializationRequested(QTextStream *pStream, QVariant data);
     void deserializationRequested(QTextStream *pStream, QVariant data);
@@ -63,8 +62,7 @@ protected slots:
     void onSerialized(QTextStream *pStream, QVariant data);
     void onDeserialized(QTextStream *pStream, QVariant data);
 
-    void onSerializationError(QString errorString);
-    void onDeserializationError(QString errorString);
+    void onSerializationError(ErrorInfo error);
 
 protected:
     void free(DiagramInfo *pDiagram);

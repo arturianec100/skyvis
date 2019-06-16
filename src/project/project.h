@@ -21,7 +21,7 @@
 #define PROJECT_H
 
 #include <QtCore>
-#include "../abstract/asyncworker.h"
+#include "../asyncworker.h"
 
 /*!
  * \brief The Project as collection of diagrams and related data

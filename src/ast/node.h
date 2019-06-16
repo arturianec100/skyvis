@@ -21,6 +21,7 @@
 #define NODE_H
 
 #include <QtCore>
+#include "astelement.h"
 #include "connection.h"
 
 /*!
@@ -29,7 +30,7 @@
  *
  * Connections are **lists of pairs** instead of **map** because order of connections is important.
  */
-class Node : public QObject
+class Node : public AstElement
 {
     Q_OBJECT
 public:

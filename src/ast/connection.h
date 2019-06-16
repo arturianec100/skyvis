@@ -21,6 +21,7 @@
 #define CONNECTION_H
 
 #include <QtCore>
+#include "astelement.h"
 
 class Node;
 
@@ -30,7 +31,7 @@ class Node;
  *
  * Currently names of input and outout pins are handled by nodes. Thoughts about another structure are welcome, but **discuss before coding**.
  */
-class Connection : public QObject
+class Connection : public AstElement
 {
     Q_OBJECT
     Q_PROPERTY(Node* fromNode READ fromNode WRITE setFromNode NOTIFY fromNodeChanged)

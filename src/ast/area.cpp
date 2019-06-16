@@ -19,7 +19,7 @@
 
 #include "area.h"
 
-Area::Area(QObject *parent) : QObject(parent)
+Area::Area(QObject *parent) : AstElement(parent)
 {
 
 }

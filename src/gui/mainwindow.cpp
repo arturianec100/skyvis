@@ -33,9 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupMenubar();
     setupToolbar();
     setupProjectTree();
-    setupFileList();
     setupObjectsHierarchy();
-    setupObjectInspector();
 
     connect(this, &MainWindow::userSelectedDirOfProjectToOpen,
             m_pProject, &Project::open);

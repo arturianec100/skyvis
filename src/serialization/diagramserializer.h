@@ -21,7 +21,7 @@
 #define DIAGRAMSERIALIZER_H
 
 #include <QtCore>
-#include "../abstract/textserializer.h"
+#include "textserializer.h"
 
 class DiagramSerializer : public TextSerializer
 {

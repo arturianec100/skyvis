@@ -20,7 +20,7 @@
 #include "diagramstorage.h"
 #include <algorithm>
 
-DiagramStorage::DiagramStorage(QObject *parent) : QObject(parent),
+DiagramStorage::DiagramStorage(QObject *parent) : CustomQObject(parent),
     m_pSerializer(new DiagramSerializer(this))
 {
     connect(this, &DiagramStorage::serializationRequested,
@@ -31,10 +31,8 @@ DiagramStorage::DiagramStorage(QObject *parent) : QObject(parent),
             this, &DiagramStorage::onSerialized);
     connect(m_pSerializer, &DiagramSerializer::deserialized,
             this, &DiagramStorage::onDeserialized);
-    connect(m_pSerializer, &DiagramSerializer::serializationError,
+    connect(m_pSerializer, &DiagramSerializer::errorOccurred,
             this, &DiagramStorage::onSerializationError);
-    connect(m_pSerializer, &DiagramSerializer::deserializationError,
-            this, &DiagramStorage::onDeserializationError);
 }
 
 DiagramStorage::~DiagramStorage()
@@ -46,7 +44,7 @@ void DiagramStorage::open(QString filePath)
 {
     QFile *pFile = new QFile(filePath);
     if (!pFile->open(QIODevice::ReadOnly | QIODevice::Text)) {
-        emit errorOpening(tr("Can't load diagram from file %1").arg(filePath));
+        emit errorOccurred(ErrorInfo("serialization", tr("Can't load diagram"), tr(" Can't open file %1").arg(filePath)));
         return;
     }
     QTextStream *pStream = new QTextStream(pFile);
@@ -58,7 +56,7 @@ void DiagramStorage::open(QString filePath)
 void DiagramStorage::close(DiagramInfo *pDiagram)
 {
     if ((pDiagram == nullptr) || (!m_diagrams.contains(pDiagram))) {
-        emit errorClosing(tr("Can't close diagram because it wasn't open"));
+        emit errorOccurred(ErrorInfo("serialization", tr("Can't close diagram"), tr("Diagram wasn't open")));
         return;
     }
     if (m_dirtyDiagrams.contains(pDiagram)) {
@@ -79,13 +77,12 @@ void DiagramStorage::save(DiagramInfo *pDiagram)
 void DiagramStorage::save(QString filePath, DiagramInfo *pDiagram)
 {
     if ((pDiagram == nullptr) || (!m_diagrams.contains(pDiagram))) {
-        emit errorSaving(tr("Can't save diagram because it wasn't open: %1")
-                          .arg(filePath));
+        emit errorOccurred(ErrorInfo("serialization", tr("Can't save diagram"), tr("Diagram wasn't open: %1").arg(filePath)));
         return;
     }
     QFile *pFile = new QFile(filePath);
     if (!pFile->open(QIODevice::WriteOnly | QIODevice::Text)) {
-        emit errorOpening(tr("Can't save diagram to file %1").arg(filePath));
+        emit errorOccurred(ErrorInfo("serialization", tr("Can't save diagram"), tr("Can't open file: %1").arg(filePath)));
         return;
     }
     QTextStream *pStream = new QTextStream(pFile);
@@ -102,6 +99,16 @@ void DiagramStorage::saveAndCloseAll()
         QThread::currentThread()->usleep(100);
     }
     emit savedAndClosedAll();
+}
+
+void DiagramStorage::markAsDirty(DiagramInfo *pDiagram)
+{
+
+}
+
+void DiagramStorage::markAsSaved(DiagramInfo *pDiagram)
+{
+
 }
 
 void DiagramStorage::onSerialized(QTextStream *pStream, QVariant data)
@@ -128,14 +135,9 @@ void DiagramStorage::onDeserialized(QTextStream *pStream, QVariant data)
     emit opened(filePath);
 }
 
-void DiagramStorage::onSerializationError(QString errorString)
+void DiagramStorage::onSerializationError(ErrorInfo error)
 {
-    emit errorSaving(tr("Can't save diagram because of fail at serialization stage: %1").arg(errorString));
-}
-
-void DiagramStorage::onDeserializationError(QString errorString)
-{
-    emit errorOpening(tr("Can't open diagram because of fail at serialization stage: %1").arg(errorString));
+    emit errorOccurred(error);
 }
 
 void DiagramStorage::free(DiagramInfo *pDiagram)

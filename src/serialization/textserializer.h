@@ -21,7 +21,7 @@
 #define TEXTSERIALIZER_H
 
 #include <QtCore>
-#include "../abstract/asyncworker.h"
+#include "../asyncworker.h"
 
 /*!
  * \brief The abstract base class for text serializers
@@ -37,9 +37,6 @@ public:
 signals:
     void serialized(QTextStream *pStream, QVariant data);
     void deserialized(QTextStream *pStream, QVariant data);
-
-    void serializationError(QString errorString, QTextStream *pStream);
-    void deserializationError(QString errorString, QTextStream *pStream);
 
 public slots:
     virtual void serialize(QTextStream *pStream, QVariant data) = 0;

@@ -21,6 +21,7 @@
 #define ASYNCWORKER_H
 
 #include <QtCore>
+#include "customqobject.h"
 
 /*!
  * \brief This class should be inherited by objects that have to work in their own threads.
@@ -29,7 +30,7 @@
  *
  * **moveToThread** makes it children of the thread. So instead of parent-child there will be parent-thread-child.
  */
-class AsyncWorker : public QObject
+class AsyncWorker : public CustomQObject
 {
     Q_OBJECT
     Q_PROPERTY(QThread* thread READ thread)

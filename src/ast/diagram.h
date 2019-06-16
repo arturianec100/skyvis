@@ -21,6 +21,7 @@
 #define DIAGRAM_H
 
 #include <QtCore>
+#include "astelement.h"
 #include "node.h"
 #include "area.h"
 
@@ -28,7 +29,7 @@
  * \brief AST Diagram.
  * \author arturianec100
  */
-class Diagram : public QObject
+class Diagram : public AstElement
 {
     Q_OBJECT
 public:

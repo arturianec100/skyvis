@@ -21,7 +21,7 @@
 #define XMLSERIALIZER_H
 
 #include <QtCore>
-#include "asyncworker.h"
+#include "../asyncworker.h"
 
 /*!
  * \brief The abstract base class for xml serializers
@@ -37,9 +37,6 @@ public:
 signals:
     void serialized(QXmlStreamWriter *pWriter, QVariant data);
     void deserialized(QXmlStreamReader *pReader, QVariant data);
-
-    void serializationError(QString errorMessage, QXmlStreamWriter *pWriter);
-    void deserializationError(QString errorMessage, QXmlStreamReader *pReader);
 
 public slots:
     virtual void serialize(QXmlStreamWriter *pWriter, QVariant data) = 0;

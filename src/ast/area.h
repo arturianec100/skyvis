@@ -21,6 +21,7 @@
 #define AREA_H
 
 #include <QtCore>
+#include "astelement.h"
 #include "node.h"
 
 /*!
@@ -29,7 +30,7 @@
  *
  * It's VP equivalent of TP comments. AST version must know only attached nodes. Rect and other visualization stuff must be handled by **gui**.
  */
-class Area : public QObject
+class Area : public AstElement
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName)
