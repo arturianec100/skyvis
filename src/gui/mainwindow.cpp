@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     m_pFSModel(new QFileSystemModel),
     m_pProject(new Project(this)),
-    m_pSpace(new DiagramSpace(this, ui->tabWidget))
+    m_pSpace(new DiagramSpace(this))
 {
     ui->setupUi(this);
     setupMenubar();

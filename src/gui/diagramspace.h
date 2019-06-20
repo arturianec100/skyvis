@@ -33,13 +33,10 @@
 class DiagramSpace : public CustomQObject
 {
     Q_OBJECT
-    Q_PROPERTY(QTabWidget* tabs READ tabs)
     Q_PROPERTY(DiagramInfo* currentDiagram READ currentDiagram)
 public:
-    explicit DiagramSpace(QObject *parent, QTabWidget *pTabs);
+    explicit DiagramSpace(QObject *parent);
     virtual ~DiagramSpace() override = default;
-
-    QTabWidget *tabs() const;
 
     DiagramInfo *currentDiagram() const;
 
@@ -52,15 +49,11 @@ signals:
     void currentDiagramSaved();
     void allDiagramsSavedAndClosed();
 
-    //virtual void errorO
-
 public slots:
     void openDiagram(QString fileName);
     void closeDiagram(int index);
     void saveCurrentDiagram();
     void saveAndCloseAllDiagrams();
-
-    void addTabForDiagram(DiagramInfo *pDiagram);
 
 protected slots:
     // TODO: implement
@@ -75,9 +68,7 @@ protected:
     void updateCurrentDiagram(int index);
 
 private:
-    QTabWidget *m_pTabs;
     DiagramStorage *m_pStorage;
-    QList<DiagramInfo *> m_diagramIndexes;
     DiagramInfo *m_pCurrentDiagram;
     DiagramInfo *m_pCurrentDiagramForSaving;
 };
