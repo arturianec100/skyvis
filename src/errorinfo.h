@@ -26,14 +26,39 @@ class ErrorInfo : public QException
 {
 public:    
     ErrorInfo();
-    ErrorInfo(QString m_category, QString m_message, QString m_reason);
+    ErrorInfo(QString category, QString operation,
+              QString message, QString reason);
     ErrorInfo(ErrorInfo const& other) = default;
     virtual ~ErrorInfo() override = default;
 
     ErrorInfo & operator = (const ErrorInfo &other) = default;
+    /*!
+     * \brief Category or "layer" where error occurred
+     */
+    QString category() const;
+    void setCategory(const QString &category);
+    /*!
+     * \brief Operation where error occurred
+     */
+    QString operation() const;
+    void setOperation(const QString &operation);
+    /*!
+     * \brief Error message
+     */
+    QString message() const;
+    void setMessage(const QString &message);
+    /*!
+     * \brief Error reason
+     */
+    QString reason() const;
+    void setReason(const QString &reason);
+
+    void raise() const override;
+    ErrorInfo *clone() const override;
 
 private:
     QString m_category;
+    QString m_operation;
     QString m_message;
     QString m_reason;
 };

@@ -24,12 +24,23 @@ DiagramSpace::DiagramSpace(QObject *parent) :
     m_pStorage(new DiagramStorage(this)),
     m_pCurrentDiagram(nullptr), m_pCurrentDiagramForSaving(nullptr)
 {
+    // Crutch: get "GraphicsView singleton" from parent (assumed it's MainWindow) until "multi diagram" will be solved
+    m_pView = parent->findChild<QGraphicsView *>();
+
     connect(this, &DiagramSpace::diagramOpeningRequested,
             m_pStorage, &DiagramStorage::open);
     connect(this, &DiagramSpace::diagramClosingRequested,
             m_pStorage, &DiagramStorage::close);
     connect(this, &DiagramSpace::diagramSavingRequested,
             m_pStorage, qOverload<DiagramInfo *>(&DiagramStorage::save));
+    connect(m_pStorage, &DiagramStorage::opened,
+            this, &DiagramSpace::onOpened);
+    connect(m_pStorage, &DiagramStorage::closed,
+            this, &DiagramSpace::onClosed);
+    connect(m_pStorage, &DiagramStorage::saved,
+            this, &DiagramSpace::onSaved);
+    connect(m_pStorage, &DiagramStorage::savedAndClosedAll,
+            this, &DiagramSpace::onSavedAndClosedAll);
 }
 
 void DiagramSpace::openDiagram(QString fileName)
@@ -42,7 +53,10 @@ void DiagramSpace::closeDiagram(int index)
     if (true) {
         emit diagramClosingRequested(m_pCurrentDiagram);
     } else {
-        emit errorOccurred(ErrorInfo("storage", tr("Can't close diagram at tab %1").arg(index), tr("Diagram wasn't opened")));
+        emit errorOccurred(ErrorInfo("storage",
+                                     tr("closing diagram"),
+                                     tr("Can't close diagram at tab     %1").arg(index),
+                                     tr("Diagram wasn't opened")));
     }
 }
 
@@ -52,7 +66,10 @@ void DiagramSpace::saveCurrentDiagram()
         m_pCurrentDiagramForSaving = currentDiagram();
         emit diagramSavingRequested(m_pCurrentDiagramForSaving);
     } else {
-        emit errorOccurred(ErrorInfo("serialization", tr("Can't save diagram"), tr("Diagram wasn't opened")));
+        emit errorOccurred(ErrorInfo("serialization",
+                                     tr("saving current diagram"),
+                                     tr("Can't save diagram"),
+                                     tr("Diagram wasn't opened")));
     }
 }
 
@@ -61,17 +78,19 @@ void DiagramSpace::saveAndCloseAllDiagrams()
     emit closingAllDiagramsRequested();
 }
 
-void DiagramSpace::onOpened(QString filePath)
+void DiagramSpace::onOpened(DiagramInfo *pDiagram)
 {
-
+    m_pView->setScene(pDiagram->m_pScene);
+    // TODO: set also diagram controller
 }
 
 void DiagramSpace::onClosed(DiagramInfo *pDiagram)
 {
-
+    m_pView->setScene(nullptr);
+    // TODO: unset also diagram controller
 }
 
-void DiagramSpace::onSaved(QString filePath)
+void DiagramSpace::onSaved(DiagramInfo *pDiagram)
 {
 
 }
@@ -83,7 +102,7 @@ void DiagramSpace::onSavedAndClosedAll()
 
 void DiagramSpace::onDiagramStorageError(ErrorInfo error)
 {
-
+    emit errorOccurred(error);
 }
 
 DiagramInfo *DiagramSpace::currentDiagram() const

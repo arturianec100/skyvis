@@ -31,7 +31,7 @@ public:
     virtual ~CustomQObject() override = default;
 
 signals:
-    virtual void errorOccurred(ErrorInfo error);
+    void errorOccurred(ErrorInfo error);
 };
 
 #endif // CUSTOMQOBJECT_H

@@ -57,9 +57,9 @@ public slots:
 
 protected slots:
     // TODO: implement
-    void onOpened(QString filePath);
+    void onOpened(DiagramInfo *pDiagram);
     void onClosed(DiagramInfo *pDiagram);
-    void onSaved(QString filePath);
+    void onSaved(DiagramInfo *pDiagram);
     void onSavedAndClosedAll();
 
     void onDiagramStorageError(ErrorInfo error);
@@ -71,6 +71,8 @@ private:
     DiagramStorage *m_pStorage;
     DiagramInfo *m_pCurrentDiagram;
     DiagramInfo *m_pCurrentDiagramForSaving;
+    // Temporarily store "GraphicsView singleton" until "multi diagram" will be solved
+    QGraphicsView *m_pView;
 };
 
 #endif // DIAGRAMSPACE_H
