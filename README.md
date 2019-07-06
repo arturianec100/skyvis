@@ -19,7 +19,7 @@ Or install these packages with your package manager.
 ### Built With
 Qt5.
 
-###Documentation
+### Documentation
 
 To create local documentation you need to have doxygen
 ```
@@ -27,7 +27,7 @@ sudo apt-get doxygen
 sudo apt-get doxygen-gui #if you wanna use GUI
 ```
 
-####Cli way
+#### Cli way
 
 To generate documentation via cli application run this in project file:
 ```
@@ -35,7 +35,7 @@ doxygen Doxyfile
 ```
 Now you have documentation in "Docs" file. Open Docs/html/index.html by any browser.
 
-####GUI way
+#### GUI way
 
 Run gui application
 ```
