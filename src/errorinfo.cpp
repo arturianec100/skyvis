@@ -20,14 +20,67 @@
 #include "errorinfo.h"
 
 ErrorInfo::ErrorInfo() :
-    m_category(QString("unknown")), m_message(QString("Unknown error")),
+    m_category(QString("unknown")), m_operation("unknown operation"),
+    m_message(QString("Unknown error")),
     m_reason(QString("Improperly constructed ErrorInfo"))
 {
 
 }
 
-ErrorInfo::ErrorInfo(QString category, QString message, QString reason) :
-    m_category(category), m_message(message), m_reason(reason)
+ErrorInfo::ErrorInfo(QString category, QString operation,
+                     QString message, QString reason) :
+    m_category(category), m_operation(operation),
+    m_message(message),m_reason(reason)
 {
 
+}
+
+QString ErrorInfo::category() const
+{
+    return m_category;
+}
+
+void ErrorInfo::setCategory(const QString &category)
+{
+    m_category = category;
+}
+
+QString ErrorInfo::operation() const
+{
+    return m_operation;
+}
+
+void ErrorInfo::setOperation(const QString &operation)
+{
+    m_operation = operation;
+}
+
+QString ErrorInfo::message() const
+{
+    return m_message;
+}
+
+void ErrorInfo::setMessage(const QString &message)
+{
+    m_message = message;
+}
+
+QString ErrorInfo::reason() const
+{
+    return m_reason;
+}
+
+void ErrorInfo::setReason(const QString &reason)
+{
+    m_reason = reason;
+}
+
+void ErrorInfo::raise() const
+{
+    throw *this;
+}
+
+ErrorInfo *ErrorInfo::clone() const
+{
+    return new ErrorInfo(*this);
 }

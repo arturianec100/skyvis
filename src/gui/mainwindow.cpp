@@ -35,6 +35,10 @@ MainWindow::MainWindow(QWidget *parent) :
     setupProjectTree();
     setupObjectsHierarchy();
 
+    // TODO: wrap in method like "setupSplittersAndLayouts"
+    // Doesn't work
+    //ui->mainHSplitter->setSizes(QList<int>() << 1 << 3);
+
     connect(this, &MainWindow::userSelectedDirOfProjectToOpen,
             m_pProject, &Project::open);
     connect(m_pProject, &Project::opened,

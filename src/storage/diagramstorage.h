@@ -37,12 +37,10 @@ public:
     virtual ~DiagramStorage() override;
 
 signals:
-    void opened(QString filePath);
+    void opened(DiagramInfo *pDiagram);
     void closed(DiagramInfo *pDiagram);
-    void saved(QString filePath);
+    void saved(DiagramInfo *pDiagram);
     void savedAndClosedAll();
-
-    virtual void errorOccurred(ErrorInfo error) override;
 
     void serializationRequested(QTextStream *pStream, QVariant data);
     void deserializationRequested(QTextStream *pStream, QVariant data);
@@ -54,7 +52,6 @@ public slots:
     void save(QString filePath, DiagramInfo *pDiagram);
     void saveAndCloseAll();
 
-    // TODO: implement
     void markAsDirty(DiagramInfo *pDiagram);
     void markAsSaved(DiagramInfo *pDiagram);
 
