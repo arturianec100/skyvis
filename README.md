@@ -41,7 +41,7 @@ Run gui application
 ```
 doxywizard Doxyfile
 ```
-Now go to Run tab and click on button "Run doxygen", when it ready chose "Show html"
+Now go to Run tab and click on button "Run doxygen", when it ready choose "Show html"
 
 ### Building
 
