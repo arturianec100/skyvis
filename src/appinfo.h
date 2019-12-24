@@ -23,7 +23,11 @@
 #include <QtCore>
 
 namespace AppInfo {
-    static const QString VERSION = "0.1";
+    static const quint32 VERSION_MAJOR = 0;
+    static const quint32 VERSION_MINOR = 0;
+    static const quint32 VERSION_PATCH = 0;
+    static const QString VERSION = QString("%1.%2.%3")
+                                    .arg(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
     static const QString DESCRIPTION = QObject::tr("Qt-based IDE for visual programming");
     static const QString CONTRIBUTORS = "arturianec100";
 }

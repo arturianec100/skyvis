@@ -45,9 +45,6 @@ signals:
     void startedOpening(QString dir);
     void startedClosing(QString dir);
 
-    void errorOpening(QString dir);
-    void errorClosing(QString dir);
-
 public slots:
     void open(QString dir);
     void close();

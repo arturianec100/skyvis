@@ -42,6 +42,7 @@ Node::ConnectionList &Node::output()
 
 Connection *Node::removeConnection(QString &connectionName)
 {
+    //! This version of iteration is used because **erase** requires an **iterator**
     for (auto itPair = m_output.begin(); itPair != m_output.end(); ++itPair) {
         if (itPair->first == connectionName) {
             auto pConn = itPair->second;

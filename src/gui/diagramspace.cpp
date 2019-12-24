@@ -55,7 +55,7 @@ void DiagramSpace::closeDiagram(int index)
     } else {
         emit errorOccurred(ErrorInfo("storage",
                                      tr("closing diagram"),
-                                     tr("Can't close diagram at tab     %1").arg(index),
+                                     tr("Can't close diagram at tab %1").arg(index),
                                      tr("Diagram wasn't opened")));
     }
 }

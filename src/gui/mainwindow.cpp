@@ -86,9 +86,7 @@ void MainWindow::aboutMessageBox()
 {
     auto result = QMessageBox::information(this, tr("About"),
                              tr("%1\nVersion: %2\nContributors: %3")
-                             .arg(AppInfo::DESCRIPTION)
-                             .arg(AppInfo::VERSION)
-                             .arg(AppInfo::CONTRIBUTORS));
+                             .arg(AppInfo::DESCRIPTION, AppInfo::VERSION, AppInfo::CONTRIBUTORS));
     Q_UNUSED(result)
 }
 
